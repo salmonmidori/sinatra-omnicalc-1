@@ -2,12 +2,12 @@
 
 <dl>
   <dt>APR</dt>
-  <dd><%=@input_apr%></dd>
+  <dd><%=(@input_apr * 100).to_fs(:percentage, {:precision => 4})%></dd>
   <dt>Number of years</dt>
   <dd><%=@input_yrs%></dd>
   <dt>Principal</dt>
-  <dd><%=@input_pv%></dd>
+  <dd><%=@input_pv.to_fs(:currency)%></dd>
   <dt>Payment</dt>
-  <dd><%=@resultf%></dd>
+  <dd><%=@result.to_fs(:currency)%></dd>
 </dl>
 <a href="/payment/new">Calculate another payment</a>

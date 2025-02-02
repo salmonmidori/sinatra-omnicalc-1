@@ -30,21 +30,23 @@ get("/payment/new") do
 end
 
 get("/payment/results") do
-  @input_apr = (params["user_apr"] / 100).to_f.to_fs(:percentage, {:precision => 4})
+  @input_apr = params["user_apr"].to_f / 100
   @input_yrs = params["user_years"]
-  @input_pv = params["user_pv"].to_f.to_fs(:currency)
-  @result = @input_apr * @input_pv / (1 - (1 + @input_apr) ** (-@input_yrs.to_f))
-  @resultf = @result.to_fs(:currency)
-  erb(:payment) 
-end
+  @input_pv = params["user_pv"].to_f
 
+  monthly_apr = @input_apr / 12
+  months = @input_yrs.to_f * 12
+  @result = monthly_apr * @input_pv / (1 - (1 + monthly_apr) ** (-months))
+  erb(:payment)
+end
 
 get("/random/new") do
   erb(:random_new)
 end
 
 get("/random/results") do
-  @input = params["number"]
-  @result = @input.to_f ** 2
+  @input_min = params["user_min"].to_f
+  @input_max = params["user_max"].to_f
+  @result = rand(@input_min..@input_max)
   erb(:random) 
 end
