@@ -21,7 +21,7 @@ end
 
 get("/square_root/results") do
   @input = params["number"]
-  @result = @input.to_f ** 1/2
+  @result = @input.to_f ** 0.5
   erb(:square_root) 
 end
 
